@@ -16,7 +16,6 @@ export const createNote = async (formData: FormData) => {
 export const toggleNoteImportance = async (formData: FormData) => {
   const id = Number(formData.get("id"))
   await toggleImportance(id)
-  
   revalidatePath(`/notes/${id}`)
   revalidatePath("/notes")
 }
