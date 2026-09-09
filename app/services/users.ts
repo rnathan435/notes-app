@@ -17,14 +17,14 @@ export const getNotesByUserId = async (userId: number) => {
   return db.select().from(notes).where(eq(notes.userId, userId))
 }
 
-export const addNote = async (content: string, important: boolean) => {
-  const user = await db.query.users.findFirst({
-    orderBy: sql`RANDOM()`,
-  })
+// export const addNote = async (content: string, important: boolean) => {
+//   const user = await db.query.users.findFirst({
+//     orderBy: sql`RANDOM()`,
+//   })
 
-  if (!user) {
-    throw new Error("Cannot add a note because no users exist in the database.")
-  }
+//   if (!user) {
+//     throw new Error("Cannot add a note because no users exist in the database.")
+//   }
 
-  await db.insert(notes).values({ content, important, userId: user.id })
-}
+//   await db.insert(notes).values({ content, important, userId: user.id })
+// }
