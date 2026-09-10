@@ -5,12 +5,19 @@ import { revalidatePath } from "next/cache"
 import { addNote, toggleImportance } from "../services/notes"
 import { auth } from "@/auth";
 
-export const createNote = async (formData: FormData) => {
+export type ActionState = {
+  error?: string
+}
+
+export const createNote = async (prevState: ActionState, formData: FormData) => {
   const session = await auth()
   if (!session) {
     redirect("/login")
   }
   const content = formData.get("content") as string
+  if (!content || content.length < 10) {
+    return { error: "Note content must be at least 10 characters long" }
+  }
   const important = formData.get("important") === "on"
   await addNote(content, important)
 
